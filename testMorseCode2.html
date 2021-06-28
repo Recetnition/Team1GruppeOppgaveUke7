@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    button {
+        display: block;
+        margin: 0 auto;
+        padding: 10px;
+        width: 320px;
+        border-radius:(5px);
+        background-color: #FAFAFA;
+        -webkit-appearance: none;
+        border: 0;
+      }
+    
+      #result {
+        color: white;
+        font-size: 40px;
+        width: 300px;
+        margin: 20px auto;
+      }
+    
+      body {
+        background: #3D3D3D;
+        color: white;
+        font-family: Helvetica Neue, Helvetica, Arial, Verdana;
+        
+        Text-align: center;
+        
+      }
+      input {
+        display: block;
+        width: 300px;
+        margin: 20px auto;
+         -webkit-appearance: none;
+        border: 1px solid black;
+        font-size: 30px;
+        padding: 10px;
+      }
+      </style>
+    
+</head>
+<body>
+    <div id="app"></div>
+    <script>
+      //model
+      let inputText; 
+    let parsedText = ""; 
+    let letter;
+    let feedbackText;
+
+
+
+
+const morseCodeArray =  [   '.-', '-...', '-.-.', '-..', '.', '..-.', '--.', '....',
+                            '..', '.---', '-.-', '.-..', '--', '-.', '---', '.--.',
+                            '--.-', '.-.', '...', '-', '..-', '...-', '.--', '-..-',
+                            '-.--', '--..', ' ', '·−·−', '−−−·', '·−−·−']; 
+
+const alphabetArray =  ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
+        'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
+        'q', 'r', 's', 't', 'u', 'v', 'w', 'x',
+        'y', 'z', ' ', 'æ', 'ø', 'å'];
+
+
+
+
+reset();
+function updateView() {
+    
+    document.getElementById('app').innerHTML = `
+        
+    <div class="parent">
+        <span><input id="inputField" oninput="inputText=this.value" class="input" role="textbox" contenteditable /></span>
+        <button onclick="parsdtext()">Morse It</button>
+        <button onclick="reset()">Reset</button>
+        <div id="infoDiv">${feedbackText}</div>
+        
+    </div>
+
+    `;
+}
+
+function parsdtext() {
+    
+    let inputLength = inputText.length;
+    for (i = 0; i < inputLength; i++) {
+        letter = inputText[i]
+        parsedText += translate(letter);
+        
+    }
+    feedbackText = parsedText;
+    updateView();
+}
+function translate(letter) {
+
+        let alphaArray = alphabetArray.indexOf(letter.toLowerCase());
+        return morseCodeArray[alphaArray];
+    }
+
+function reset() {
+    feedbackText = '';
+    updateView();
+   }
+
+
+</script>
+</body>
+</html>
